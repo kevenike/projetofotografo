@@ -52,8 +52,9 @@
 
   <!-- Cabeçalho -->
   <header id="header" class="site-header">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="#" class="brand text-2xl font-extrabold tracking-wider text-accent" aria-label="Página inicial">
+    <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-[70px] md:h-[76px] lg:h-[82px]">
+      <a href="#" class="brand text-xl md:text-2xl lg:text-2xl font-extrabold tracking-wider text-accent" aria-label="Página inicial">
         <span class="camera-anim" aria-hidden="true">
           <span class="flash"></span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -62,15 +63,15 @@
         </span>
         jjphotosbr
       </a>
-      <nav class="hidden md:flex items-center gap-8" role="navigation" aria-label="Menu principal">
+      <nav class="hidden md:flex items-center space-x-4 lg:space-x-6 xl:space-x-8" role="navigation" aria-label="Menu principal">
         <a href="#portfolio" class="nav-link" aria-label="Ir para seção de portfólio" data-aos="fade-down">Portfólio</a>
         <a href="#sobre" class="nav-link" aria-label="Ir para seção sobre" data-aos="fade-down" data-aos-delay="100">Sobre</a>
         <a href="#contato" class="nav-link" aria-label="Ir para seção de contato" data-aos="fade-down" data-aos-delay="200">Contato</a>
-        <a href="#contato" class="btn btn-sm ml-2" aria-label="Agendar uma sessão de fotos" data-aos="zoom-in" data-aos-delay="300">Agendar Sessão</a>
+        <a href="#contato" class="btn btn-sm ml-3 lg:ml-4 px-3 lg:px-4 py-2 text-sm" aria-label="Agendar uma sessão de fotos" data-aos="zoom-in" data-aos-delay="300">Agendar Sessão</a>
       </nav>
       
       <!-- Theme Toggle Button -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center space-x-2 lg:space-x-3">
         <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar tema" title="Alternar entre modo claro e escuro">
           <div class="theme-toggle-track">
             <div class="theme-toggle-thumb">
@@ -80,15 +81,16 @@
           </div>
         </button>
         
-        <button id="mobile-menu-button" class="md:hidden text-accent" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
-          <i data-lucide="menu"></i>
+        <button id="mobile-menu-button" class="md:hidden text-accent p-2 hover:bg-accent hover:bg-opacity-10 rounded-lg transition-all duration-200" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
+      </div>
       </div>
     </div>
   </header>
 
   <!-- Menu Mobile -->
-  <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-primary z-50" role="navigation" aria-label="Menu mobile">
+  <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-primary z-[1100]" role="navigation" aria-label="Menu mobile">
     <div class="flex flex-col items-center justify-center h-full space-y-8">
       <button id="mobile-menu-close-button" class="absolute top-6 right-6 text-accent">
         <i data-lucide="x"></i>
@@ -224,12 +226,23 @@
     </section>
 
     <!-- Seção Contato / Agendamento -->
-    <section id="contato" class="py-16 sm:py-20 md:py-24 lg:py-32">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section id="contato" class="py-16 sm:py-20 md:py-24 lg:py-32 relative overflow-hidden">
+      <!-- Vídeo de Fundo -->
+      <div class="video-background">
+        <video autoplay muted loop playsinline class="video-bg" preload="auto">
+          <source src="./video/181536-866999858_small.mp4" type="video/mp4">
+          Seu navegador não suporta vídeos HTML5.
+        </video>
+      </div>
+      
+      <!-- Overlay escuro para melhorar legibilidade -->
+      <div class="video-overlay"></div>
+      
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-20">
         <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 lg:mb-8">
           Vamos Criar Algo <span class="text-accent">Incrível</span> Juntos
         </h2>
-        <p class="text-secondary mb-8 sm:mb-10 lg:mb-12 max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto text-sm sm:text-base lg:text-lg leading-relaxed">
+        <p class="mb-8 sm:mb-10 lg:mb-12 max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto text-sm sm:text-base lg:text-lg leading-relaxed">
           Tem uma ideia, um projeto ou um momento especial para registrar? Entre em contato e vamos conversar. Estou disponível para ensaios, eventos e projetos comerciais.
         </p>
         
@@ -243,15 +256,15 @@
         
         <!-- Informações adicionais -->
         <div class="mt-8 sm:mt-10 lg:mt-12 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 max-w-xl mx-auto text-xs sm:text-sm">
-          <div class="flex flex-col items-center p-4 bg-primary/50 rounded-lg border border-accent/20 w-full sm:w-auto min-w-[180px]">
+          <div class="info-card flex flex-col items-center w-full sm:w-auto min-w-[180px] rounded-lg p-4">
             <i data-lucide="clock" class="w-5 h-5 sm:w-6 sm:h-6 text-accent mb-2"></i>
-            <span class="font-semibold info-card-title">Resposta Rápida</span>
-            <span class="info-card-subtitle">Em até 2 horas</span>
+            <span class="font-semibold">Resposta Rápida</span>
+            <span class="opacity-80">Em até 2 horas</span>
           </div>
-          <div class="flex flex-col items-center p-4 bg-primary/50 rounded-lg border border-accent/20 w-full sm:w-auto min-w-[180px]">
+          <div class="info-card flex flex-col items-center w-full sm:w-auto min-w-[180px] rounded-lg p-4">
             <i data-lucide="calendar" class="w-5 h-5 sm:w-6 sm:h-6 text-accent mb-2"></i>
-            <span class="font-semibold info-card-title">Agenda Flexível</span>
-            <span class="info-card-subtitle">Finais de semana</span>
+            <span class="font-semibold">Agenda Flexível</span>
+            <span class="opacity-80">Finais de semana</span>
           </div>
         </div>
       </div>

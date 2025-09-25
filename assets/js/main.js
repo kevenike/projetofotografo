@@ -155,9 +155,18 @@ const filterButtons = document.querySelectorAll('.filter-btn');
 const galleryItems = () => document.querySelectorAll('.gallery-item');
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
-  filterButtons.forEach(btn => { btn.classList.remove('active', 'bg-accent', 'text-[#181818]', 'text-white'); btn.classList.add('bg-primary', 'text-secondary'); });
-  button.classList.add('active', 'bg-accent', 'text-white');
-    button.classList.remove('bg-primary', 'text-secondary');
+    filterButtons.forEach(btn => { 
+      btn.classList.remove('active'); 
+      btn.style.backgroundColor = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    });
+    
+    button.classList.add('active');
+    button.style.backgroundColor = 'var(--accent)';
+    button.style.color = '#FFFFFF';
+    button.style.borderColor = 'var(--accent)';
+    
     const filter = button.getAttribute('data-filter');
     galleryItems().forEach(item => {
       if (filter === 'all' || item.getAttribute('data-category') === filter) {
@@ -181,3 +190,77 @@ window.addEventListener('scroll', () => {
   const progress = (scrollTop / docHeight) * 100;
   scrollProgress.style.height = progress + '%';
 });
+
+// Theme Toggle Functionality
+class ThemeManager {
+  constructor() {
+    this.currentTheme = localStorage.getItem('theme') || 'dark';
+    this.init();
+  }
+
+  init() {
+    // Set initial theme
+    this.setTheme(this.currentTheme);
+    
+    // Bind events
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => this.toggleTheme());
+    }
+    
+    if (themeToggleMobile) {
+      themeToggleMobile.addEventListener('click', () => this.toggleTheme());
+    }
+
+    // Listen for system theme changes
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', () => {
+        if (!localStorage.getItem('theme')) {
+          this.setTheme(mediaQuery.matches ? 'dark' : 'light');
+        }
+      });
+    }
+  }
+
+  setTheme(theme) {
+    this.currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    // Update toggle button states
+    this.updateToggleButtons();
+    
+    // Trigger custom event for theme change
+    window.dispatchEvent(new CustomEvent('themeChanged', { 
+      detail: { theme: theme }
+    }));
+  }
+
+  toggleTheme() {
+    const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    this.setTheme(newTheme);
+  }
+
+  updateToggleButtons() {
+    const toggleButtons = document.querySelectorAll('.theme-toggle-btn');
+    toggleButtons.forEach(button => {
+      if (this.currentTheme === 'light') {
+        button.setAttribute('aria-label', 'Mudar para modo escuro');
+        button.title = 'Mudar para modo escuro';
+      } else {
+        button.setAttribute('aria-label', 'Mudar para modo claro');
+        button.title = 'Mudar para modo claro';
+      }
+    });
+  }
+
+  getCurrentTheme() {
+    return this.currentTheme;
+  }
+}
+
+// Initialize theme manager
+const themeManager = new ThemeManager();

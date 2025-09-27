@@ -1149,10 +1149,62 @@ html { scroll-behavior: smooth; }
     display: block;
   }
   
-  /* Theme toggle adjustments */
+  /* Ocultar theme toggle no mobile */
   .theme-toggle-btn {
-    margin-right: 0.75rem;
-    flex-shrink: 0;
+    display: none !important;
+  }
+  
+  .theme-toggle-track {
+    width: 100% !important;
+    height: 100% !important;
+    border-width: 1px !important;
+    border-radius: 14px !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+  }
+  
+  .theme-toggle-thumb {
+    width: 24px !important;
+    height: 24px !important;
+    top: 2px !important;
+    left: 2px !important;
+    border-radius: 50% !important;
+    background: var(--accent) !important;
+    transition: transform 0.2s ease !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  .theme-icon {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  
+  /* Estados do tema para mobile */
+  [data-theme="light"] .theme-toggle-thumb {
+    transform: translateX(26px) !important;
+    background: #FFB800 !important;
+  }
+  
+  [data-theme="light"] .theme-toggle-track {
+    background: rgba(255, 184, 0, 0.2) !important;
+    border-color: rgba(255, 184, 0, 0.4) !important;
+  }
+  
+  /* Focus limpo para mobile */
+  .theme-toggle-btn:focus {
+    outline: 2px solid var(--accent) !important;
+    outline-offset: 2px !important;
+  }
+  
+  .theme-toggle-btn:focus .theme-toggle-track {
+    outline: none !important;
+  }
+  
+  /* Active state para feedback tátil */
+  .theme-toggle-btn:active {
+    transform: scale(0.96) translateZ(0);
   }
   
   /* Mobile menu button */
@@ -1503,7 +1555,7 @@ html { scroll-behavior: smooth; }
   border-color: var(--accent);
 }
 
-/* === TOUCH DEVICES === */
+/* === TOUCH DEVICES OTIMIZADOS === */
 @media (hover: none) and (pointer: coarse) {
   /* Larger touch targets */
   .btn { 
@@ -1531,12 +1583,81 @@ html { scroll-behavior: smooth; }
     touch-action: manipulation;
   }
   
+  /* Ocultar theme toggle em touch devices */
   .theme-toggle-btn {
-    min-height: 44px;
-    touch-action: manipulation;
+    display: none !important;
   }
   
-  /* Remove hover effects that don't work on touch */
+  /* Área de toque expandida */
+  .theme-toggle-btn::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--touch-area) * -1);
+    left: calc(var(--touch-area) * -1);
+    right: calc(var(--touch-area) * -1);
+    bottom: calc(var(--touch-area) * -1);
+    background: transparent;
+    z-index: -1;
+  }
+  
+  .theme-toggle-track {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    transition: all 0.2s ease !important;
+    border-width: 2px !important;
+  }
+  
+  .theme-toggle-thumb {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.25),
+      0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Remover efeitos shimmer em touch devices */
+  .theme-toggle-thumb::before {
+    display: none !important;
+  }
+  
+  .theme-toggle-track::before {
+    display: none !important;
+  }
+  
+  /* Feedback tátil simplificado */
+  .theme-toggle-btn:active {
+    transform: scale(0.95);
+  }
+  
+  .theme-toggle-btn:active .theme-toggle-track {
+    transform: scale(0.98);
+  }
+  
+  /* Remover hover effects que não funcionam no touch */
+  .theme-toggle-btn:hover .theme-toggle-track {
+    background: var(--glass-bg) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .theme-toggle-btn:hover .theme-toggle-thumb {
+    transform: none !important;
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.25),
+      0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .theme-toggle-btn:hover .theme-toggle-thumb::before {
+    left: -100% !important;
+  }
+  
+  /* Ícones otimizados para touch */
+  .theme-icon {
+    transition: all 0.2s ease !important;
+  }
+  
+  /* Remove hover effects gerais que não funcionam no touch */
   .gallery-item:hover .gallery-overlay { opacity: 0; }
   .gallery-item .gallery-overlay { opacity: 1; }
   
@@ -1577,6 +1698,30 @@ html { scroll-behavior: smooth; }
   .section-title {
     font-size: 1.4rem;
   }
+  
+  /* Ocultar theme toggle em landscape mobile */
+  .theme-toggle-btn {
+    display: none !important;
+  }
+  
+  .theme-toggle-track {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+  
+  .theme-toggle-thumb {
+    width: calc(100% - 28px) !important;
+    height: calc(100% - 3px) !important;
+  }
+  
+  .theme-icon {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  
+  [data-theme="light"] .theme-toggle-thumb {
+    transform: translateX(26px) translateZ(0) !important;
+  }
 }
 
 /* === AJUSTES PARA IPHONES ESPECÍFICOS === */
@@ -1590,6 +1735,11 @@ html { scroll-behavior: smooth; }
   .stat-grid {
     grid-template-columns: 1fr;
     gap: 0.75rem;
+  }
+  
+  /* Ocultar theme toggle */
+  .theme-toggle-btn {
+    display: none !important;
   }
 }
 
@@ -1607,6 +1757,11 @@ html { scroll-behavior: smooth; }
   .filter-btn {
     font-size: 0.85rem;
     padding: 0.55rem 0.85rem;
+  }
+  
+  /* Ocultar theme toggle */
+  .theme-toggle-btn {
+    display: none !important;
   }
 }
 
@@ -1635,43 +1790,67 @@ html { scroll-behavior: smooth; }
     padding: 0.5rem 0.7rem;
     min-width: 60px;
   }
+  
+  /* Ocultar theme toggle */
+  .theme-toggle-btn {
+    display: none !important;
+  }
 }
 
-/* === THEME TOGGLE === */
+/* === THEME TOGGLE LIMPO E FUNCIONAL === */
 .theme-toggle-btn {
   position: relative;
-  width: 52px;
-  height: 26px;
+  width: 60px;
+  height: 30px;
   border: none;
   background: transparent;
   cursor: pointer;
   padding: 0;
   outline: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  border-radius: 15px;
+  display: none; /* Oculto por padrão */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mostrar apenas em tablets e desktop */
+@media (min-width: 768px) {
+  .theme-toggle-btn {
+    display: flex !important;
+  }
+}
+
+/* Responsividade melhorada */
+@media (min-width: 768px) {
+  .theme-toggle-btn {
+    width: 64px;
+    height: 32px;
+  }
 }
 
 @media (min-width: 1024px) {
   .theme-toggle-btn {
-    width: 56px;
-    height: 28px;
+    width: 68px;
+    height: 34px;
   }
 }
 
 .theme-toggle-btn.mobile {
-  width: 50px;
-  height: 25px;
+  width: 56px;
+  height: 28px;
 }
 
 .theme-toggle-track {
   width: 100%;
   height: 100%;
-  background: var(--glass-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
   position: relative;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .theme-toggle-thumb {
@@ -1685,66 +1864,262 @@ html { scroll-behavior: smooth; }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .theme-toggle-btn.mobile .theme-toggle-thumb {
-  width: 21px;
-  height: 21px;
+  width: calc(100% - 28px);
 }
 
 .theme-icon {
   width: 14px;
   height: 14px;
   position: absolute;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .theme-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .theme-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .theme-toggle-btn.mobile .theme-icon {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
 }
 
 .sun-icon {
   color: #FFD700;
   opacity: 1;
+  transform: rotate(0deg) scale(1);
 }
 
 .moon-icon {
   color: #E6E6FA;
   opacity: 0;
-  transform: rotate(180deg);
+  transform: rotate(180deg) scale(0.8);
 }
 
-/* Dark theme active state */
+/* Estados do tema */
 [data-theme="light"] .theme-toggle-thumb {
-  transform: translateX(28px);
+  transform: translateX(30px);
+  background: #FFB800;
+}
+
+[data-theme="light"] .theme-toggle-track {
+  background: rgba(255, 184, 0, 0.2);
+  border-color: rgba(255, 184, 0, 0.4);
+}
+
+@media (min-width: 768px) {
+  [data-theme="light"] .theme-toggle-thumb {
+    transform: translateX(32px);
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-theme="light"] .theme-toggle-thumb {
+    transform: translateX(34px);
+  }
 }
 
 [data-theme="light"] .theme-toggle-btn.mobile .theme-toggle-thumb {
-  transform: translateX(23px);
+  transform: translateX(28px);
 }
 
 [data-theme="light"] .sun-icon {
   opacity: 0;
-  transform: rotate(-180deg);
+  transform: rotate(-180deg) scale(0.8);
 }
 
 [data-theme="light"] .moon-icon {
   opacity: 1;
-  transform: rotate(0deg);
+  transform: rotate(0deg) scale(1);
 }
 
+/* Efeitos de hover simplificados */
 .theme-toggle-btn:hover .theme-toggle-track {
-  background: var(--accent-light);
   border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 109, 119, 0.2);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
 }
 
 .theme-toggle-btn:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: 50px;
+}
+
+/* Animações suaves e melhorias de acessibilidade */
+.theme-toggle-btn {
+  transform-origin: center;
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Pulse effect quando focado */
+.theme-toggle-btn:focus .theme-toggle-track {
+  animation: themePulse 2s infinite;
+}
+
+@keyframes themePulse {
+  0%, 100% {
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.1),
+      0 0 0 0 rgba(0, 109, 119, 0.4);
+  }
+  50% {
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.1),
+      0 0 0 8px rgba(0, 109, 119, 0);
+  }
+}
+
+/* Indicador visual de estado do tema */
+.theme-toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 40%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 1px;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="light"] .theme-toggle-track::after {
+  left: auto;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Melhor compatibilidade com motion reduzida */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle-btn,
+  .theme-toggle-thumb,
+  .theme-toggle-track,
+  .theme-icon {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .theme-toggle-thumb::before {
+    display: none;
+  }
+}
+
+/* Melhoria para telas de alto contraste */
+@media (prefers-contrast: high) {
+  .theme-toggle-track {
+    border-width: 3px;
+    border-color: currentColor;
+  }
+  
+  .theme-toggle-thumb {
+    box-shadow: 
+      0 0 0 2px var(--bg-primary),
+      0 0 0 4px currentColor;
+  }
+}
+
+/* === OTIMIZAÇÕES ESPECÍFICAS PARA iOS === */
+@supports (-webkit-appearance: none) {
+  .theme-toggle-btn {
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .theme-toggle-track {
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  .theme-toggle-thumb {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+/* === OTIMIZAÇÕES PARA ANDROID === */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+  .theme-toggle-btn {
+    /* Melhor performance em Android */
+    contain: layout style paint;
+  }
+  
+  .theme-toggle-track {
+    /* Reduzir blur em dispositivos Android com baixa performance */
+    backdrop-filter: blur(8px) !important;
+  }
+}
+
+/* === MELHORIAS PARA DISPOSITIVOS DE BAIXA PERFORMANCE === */
+@media (max-width: 480px) {
+  .theme-toggle-track {
+    /* Reduzir efeitos pesados em telas pequenas */
+    backdrop-filter: blur(6px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
+  }
+  
+  .theme-toggle-btn {
+    /* Otimizar rendering */
+    contain: strict;
+    isolation: isolate;
+  }
+  
+  /* Simplificar animações */
+  .theme-toggle-thumb,
+  .theme-toggle-track,
+  .theme-icon {
+    transition-duration: 0.2s !important;
+  }
+}
+
+/* === PWA E FULLSCREEN OTIMIZATIONS === */
+@media (display-mode: standalone) {
+  .theme-toggle-btn {
+    /* Ajustes para modo PWA */
+    margin-right: 1rem;
+  }
+}
+
+/* === DARK MODE SYSTEM PREFERENCE === */
+@media (prefers-color-scheme: dark) {
+  .theme-toggle-track {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .theme-toggle-track {
+    border-color: rgba(0, 0, 0, 0.2);
+  }
 }
 
 /* === MELHORIAS ADICIONAIS === */
@@ -1853,25 +2228,79 @@ img, video, canvas, svg {
     height: 20px;
   }
   
-  /* Theme toggle menor */
+  /* Ocultar theme toggle em telas muito pequenas */
   .theme-toggle-btn {
-    width: 44px;
-    height: 22px;
-    margin-right: 0.5rem;
+    display: none !important;
+  }
+  
+  .theme-toggle-track {
+    width: 48px !important;
+    height: 24px !important;
+    border-width: 1px !important;
+    border-radius: 12px !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
   }
   
   .theme-toggle-thumb {
-    width: 18px;
-    height: 18px;
+    width: 20px !important;
+    height: 20px !important;
+    top: 2px !important;
+    left: 2px !important;
+    border-radius: 50% !important;
+    background: var(--accent) !important;
+    transition: transform 0.2s ease !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
   }
   
   .theme-icon {
-    width: 10px;
-    height: 10px;
+    width: 10px !important;
+    height: 10px !important;
   }
   
+  /* Estados para telas muito pequenas */
   [data-theme="light"] .theme-toggle-thumb {
-    transform: translateX(20px);
+    transform: translateX(24px) !important;
+    background: #FFB800 !important;
+  }
+  
+  [data-theme="light"] .theme-toggle-track {
+    background: rgba(255, 184, 0, 0.2) !important;
+    border-color: rgba(255, 184, 0, 0.4) !important;
+  }
+  
+  /* Remover hover effects em telas pequenas */
+  .theme-toggle-btn:hover .theme-toggle-thumb,
+  .theme-toggle-btn:hover .theme-toggle-track {
+    transform: none !important;
+    background: initial !important;
+    border-color: initial !important;
+    box-shadow: initial !important;
+  }
+  
+  [data-theme="light"] .theme-toggle-btn:hover .theme-toggle-thumb {
+    transform: translateX(25px) translateZ(0) !important;
+  }
+  
+  /* Focus state simplificado */
+  .theme-toggle-btn:focus {
+    outline: 2px solid var(--accent) !important;
+    outline-offset: 2px !important;
+  }
+  
+  .theme-toggle-btn:focus .theme-toggle-track {
+    outline: none !important;
+  }
+  
+  /* Active state com feedback suave */
+  .theme-toggle-btn:active {
+    transform: scale(0.94) !important;
+  }
+  
+  .theme-toggle-btn:active .theme-toggle-track {
+    transform: scale(0.98) !important;
   }
   
   /* Typography ultra compacta */
